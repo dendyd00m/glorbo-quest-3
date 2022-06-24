@@ -1,0 +1,52 @@
+/mob/var/stat/wallet = 100
+
+/obj/gettable
+	var/getsound
+	Click()
+		if(src.loc in view(1))
+			view() << "[usr] takes [src]."
+			Move(usr.loc)
+			view() << sound(src.getsound)
+			sleep(3)
+			src.loc = usr
+	MouseDrop(obj/item,null,obj/location)
+		if(location.density == 0)
+			if(item in view(1))
+				Move(item,location.loc)
+
+/obj/gettable/bowling_ball
+	icon = 'bowlingball.dmi'
+
+/obj/gettable/drink
+	var/sips = 3
+	getsound = 'drinkpickup.ogg'
+
+/obj/gettable/drink/soda_can
+	icon = 'soda.dmi'
+	Click()
+		if(src.loc in usr)
+			if(sips > 0)
+				view() << "[usr] takes a sip of [src]."
+				sips = sips - 1
+			else
+				usr << "[src] is empty!"
+		else
+			..()
+
+/obj/vending_machine
+	density = 1
+	icon = 'vending_machine.dmi'
+	var/obj/gettable/drink/soda_can/vendor_item
+	var/price = 7
+	Click()
+		if(src.loc in view(1))
+			if(usr.wallet < price)
+				usr << "Uh oh, you don't have enough money in your wallet for that!"
+			else
+				view() << "[usr] puts [price] Glorbcoins into [src]."
+				view() << "KERTHUNK! something falls out of [src]."
+				usr.wallet = usr.wallet - price
+				vendor_item = new(src.loc)
+
+/*purchase_item(obj/item in src.contents)
+set src in view(1)*/

@@ -1,0 +1,23 @@
+// DM Environment file for glorbo quest 3.dme.
+// All manual changes should be made outside the BEGIN_ and END_ blocks.
+// New source code should be placed in .dm files: choose File/New --> Code File.
+
+// BEGIN_INTERNALS
+// END_INTERNALS
+
+// BEGIN_FILE_DIR
+#define FILE_DIR .
+// END_FILE_DIR
+
+// BEGIN_PREFERENCES
+// END_PREFERENCES
+
+// BEGIN_INCLUDE
+#include "combat.dm"
+#include "glorbo quest 3.dm"
+#include "snow.dm"
+#include "vending.dm"
+#include "verbs.dm"
+#include "walgreens.dmm"
+// END_INCLUDE
+

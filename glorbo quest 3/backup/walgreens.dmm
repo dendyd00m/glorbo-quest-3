@@ -1,0 +1,43 @@
+"a" = (/turf/floor/start,/area)
+"b" = (/turf/floor,/area)
+"c" = (/turf/floor,/area/dark)
+"d" = (/turf/wall,/area/dark)
+"e" = (/obj/torch,/turf/floor,/area/dark)
+"f" = (/turf/floor/start,/area/dark)
+"g" = (/obj/scroll,/turf/floor,/area/dark)
+"h" = (/obj/scroll,/turf/wall,/area/dark)
+"i" = (/obj/scroll/book,/turf/floor,/area/dark)
+"j" = (/mob/guard,/turf/floor,/area/dark)
+"k" = (/obj/mirror_scroll,/turf/floor/start,/area/dark)
+"l" = (/obj/disguise,/turf/floor,/area/dark)
+"m" = (/obj/scroll/shared_scroll,/turf/floor,/area/dark)
+"n" = (/mob/doppelganger,/turf/floor,/area/dark)
+"o" = (/obj/poison_vial,/turf/floor,/area/dark)
+"p" = (/obj/melee_weapon/sword,/turf/floor,/area/dark)
+"q" = (/obj/armour/chainmail,/turf/floor,/area/dark)
+"r" = (/obj/armour/chainmail,/turf/floor/start,/area/dark)
+"s" = (/obj/gettable/vending_machine,/turf/floor,/area/dark)
+"t" = (/obj/gettable/bowling_ball,/turf/floor,/area/dark)
+
+(1,1,1) = {"
+cccccccccccccccccccc
+ccddddddccccdcdddddc
+ccdceccdccccdccccccc
+ccdccccdccccdcdcdddc
+ccdccccdccccdcdgcccc
+ccddcdddccccdcdcdcdc
+cccgcjccccccdcdcdcdc
+ccccccclekccdcdcdcdc
+cccccnccgccddcdcdcdc
+ccccicccccccccccccdc
+ccccccmeemccddddhcdc
+ccccppcoccccesecccdc
+cccccccccocccccccccc
+ccccrqccccccctcccccc
+cccccccccccccccccccc
+cccccccccccccccfcccc
+bbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbb
+bbbbbbbbabbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbb
+"}
