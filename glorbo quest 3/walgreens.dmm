@@ -13,9 +13,9 @@
 "m" = (/obj/scroll/shared_scroll,/turf/floor,/area/dark)
 "n" = (/mob/doppelganger,/turf/floor,/area/dark)
 "o" = (/obj/poison_vial,/turf/floor,/area/dark)
-"p" = (/obj/melee_weapon/sword,/turf/floor,/area/dark)
-"q" = (/obj/armour/chainmail,/turf/floor,/area/dark)
-"r" = (/obj/armour/chainmail,/turf/floor/start,/area/dark)
+"p" = (/obj/gettable/melee_weapon/sword,/turf/floor,/area/dark)
+"q" = (/obj/gettable/armour/chainmail,/turf/floor,/area/dark)
+"r" = (/obj/gettable/armour/chainmail,/turf/floor/start,/area/dark)
 "s" = (/obj/vending_machine,/turf/floor,/area/dark)
 "t" = (/obj/gettable/bowling_ball,/turf/floor,/area/dark)
 

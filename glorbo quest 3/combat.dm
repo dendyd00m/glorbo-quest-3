@@ -19,31 +19,30 @@ proc
 			target.loc = locate(/turf/floor/start)
 			target.health = target.maxhealth
 
-obj
-	melee_weapon
-		var
-			stat
-				weapondamage = 5
-			realdamage = 0
-		verb
-			strike(mob/target in view(1))
-				realdamage = WeaponAttack(target.health,weapondamage,target.armour)
-				target.health = realdamage
-				if(realdamage > 0)
-					view() << "[src.loc] strikes [target] with [src] for [weapondamage - target.armour] damage!"
-				else
-					view() << "[src.loc] tries to strike [target] with [src], but [src.loc] is unharmed!"
-				DeathCheck(target)
-		sword
-			icon = 'sword.dmi'
-			weapondamage = 10
-	armour
-		var
-			stat
-				armour = 0
-		chainmail
-			armour = 3
-			icon = 'chainmail.dmi'
+obj/gettable/melee_weapon
+	var
+		stat
+			weapondamage = 5
+		realdamage = 0
+	verb
+		strike(mob/target in view(1))
+			realdamage = WeaponAttack(target.health,weapondamage,target.armour)
+			target.health = realdamage
+			if(realdamage > 0)
+				view() << "[src.loc] strikes [target] with [src] for [weapondamage - target.armour] damage!"
+			else
+				view() << "[src.loc] tries to strike [target] with [src], but [src.loc] is unharmed!"
+			DeathCheck(target)
+	sword
+		icon = 'sword.dmi'
+		weapondamage = 10
+obj/gettable/armour
+	var
+		stat
+			armour = 0
+	chainmail
+		armour = 3
+		icon = 'chainmail.dmi'
 
 mob
 	var
