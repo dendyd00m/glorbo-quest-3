@@ -3,5 +3,6 @@
 	stat("Health", "[health]/[maxhealth]")
 	stat("Magic", "[magic]/[maxmagic]")
 	stat("Current Armour", "[armour]")
+	stat("Effective Damage", "[weapondamage]")
 	stat("Wallet", "[wallet]")
 	statpanel("Inventory",usr.contents)

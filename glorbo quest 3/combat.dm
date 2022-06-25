@@ -41,21 +41,6 @@ obj
 		var
 			stat
 				armour = 0
-		verb
-			equip_armour()
-				if(!usr.equip)
-					view() << "[usr] dons [src]."
-					usr.armour = usr.armour + armour
-					usr.equip = 1
-				else
-					usr << "You are already wearing something!"
-			remove_armour()
-				if(usr.equip)
-					view () << "[usr] doffs [src]."
-					usr.armour = usr.armour - armour
-					usr.equip = 0
-				else
-					usr << "You aren't wearing anything!"
 		chainmail
 			armour = 3
 			icon = 'chainmail.dmi'
@@ -69,4 +54,3 @@ mob
 			maxmagic = 50
 			armour = 0
 			equip = 0
-			
