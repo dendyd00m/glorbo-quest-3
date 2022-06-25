@@ -14,6 +14,7 @@
 			if(src in view(1))
 				if(destination.type == /turf/floor)
 					Move(destination)
+					view() << sound(src.getsound)
 //					usr << "[destination.name] [destination.loc] [destination.type]"
 //					usr << "[location.name] [location.loc] [location.type]"
 
