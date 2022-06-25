@@ -12,7 +12,7 @@
 	MouseDrop(obj/destination,null,obj/location)
 		if(destination.density == 0)
 			if(src in view(1))
-				if(destination.type == /turf/floor)
+				if(istype(destination,/turf))
 					Move(destination)
 					view() << sound(src.getsound)
 //					usr << "[destination.name] [destination.loc] [destination.type]"
