@@ -18,6 +18,7 @@
 #include "snow.dm"
 #include "vending.dm"
 #include "verbs.dm"
+#include "inventory.dm"
 #include "walgreens.dmm"
 // END_INCLUDE
 
