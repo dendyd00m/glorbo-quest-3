@@ -8,8 +8,19 @@
 	else
 		return 1
 
+/obj/gettable/armour/proc/ArmourCanDropCheck(obj/gettable/armour/item)
+	if(item.is_equipped)
+		usr << ("You need to unequip [item] before you can drop it!")
+		return 0
+	else
+		return  1
+
 /obj/gettable/melee_weapon/MouseDrop()
 	if(WeaponCanDropCheck(src,usr))
+		..()
+
+/obj/gettable/armour/MouseDrop()
+	if(ArmourCanDropCheck(src))
 		..()
 
 /obj/gettable/melee_weapon
@@ -49,6 +60,7 @@
 		view() << "[usr] dons [src]."
 		src.suffix = "(worn)"
 		usr.armour = usr.armour + armour
+		src.is_equipped = 1
 		usr.equip = 1
 	else
 		usr << "You are already wearing something!"
@@ -57,6 +69,7 @@
 		view () << "[usr] doffs [src]."
 		src.suffix = null
 		usr.armour = usr.armour - armour
+		src.is_equipped = 0
 		usr.equip = 0
 	else
 		usr << "You aren't wearing anything!"

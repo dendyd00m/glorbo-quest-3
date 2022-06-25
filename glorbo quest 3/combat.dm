@@ -39,6 +39,7 @@ obj/gettable/melee_weapon
 obj/gettable/armour
 	var
 		stat
+			is_equipped = 0
 			armour = 0
 	chainmail
 		armour = 3
