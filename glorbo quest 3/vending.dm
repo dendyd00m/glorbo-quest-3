@@ -12,7 +12,7 @@
 	MouseDrop(obj/item,null,obj/location)
 		if(location.density == 0)
 			if(item in view(1))
-				Move(item,location.loc)
+				Move(item)
 
 /obj/gettable/bowling_ball
 	icon = 'bowlingball.dmi'
@@ -39,6 +39,7 @@
 	var/obj/gettable/drink/soda_can/vendor_item
 	var/price = 7
 	Click()
+		var/obj/item
 		if(src.loc in view(1))
 			if(usr.wallet < price)
 				usr << "Uh oh, you don't have enough money in your wallet for that!"
@@ -47,6 +48,8 @@
 				view() << "KERTHUNK! something falls out of [src]."
 				usr.wallet = usr.wallet - price
 				vendor_item = new(src.loc)
+		for(item in src.contents)
+			usr << "[item]"
 
 /*purchase_item(obj/item in src.contents)
 set src in view(1)*/
