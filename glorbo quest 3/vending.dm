@@ -21,6 +21,7 @@
 	icon = 'bowlingball.dmi'
 
 /obj/gettable/drink
+	value = 0
 	var/sips = 3
 	getsound = 'drinkpickup.ogg'
 
@@ -34,6 +35,8 @@
 			else
 				usr << "[src] is empty!"
 				src.suffix = "(empty)"
+				src.value = 2
+				desc = "It's an empty can! Hey, it could be worth a couple Glorbcoins."
 		else
 			..()
 
