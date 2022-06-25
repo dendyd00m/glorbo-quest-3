@@ -71,8 +71,8 @@ mob
 			equip = 0
 
 	Stat()
-		statpanel("Stats")
-		stat("Health", "[health]/[maxhealth]")
-		stat("Magic", "[magic]/[maxmagic]")
-		stat("Current Armour", "[armour]")
-		stat("Wallet", "[wallet]")
+		if(statpanel("Stats"))
+			stat("Health", "[health]/[maxhealth]")
+			stat("Magic", "[magic]/[maxmagic]")
+			stat("Current Armour", "[armour]")
+			stat("Wallet", "[wallet]")
