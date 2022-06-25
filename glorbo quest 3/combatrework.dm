@@ -1,5 +1,7 @@
 /mob/var/stat/weapondamage = 2
 /mob/var/stat/wielded = 0
+/mob/var/attackmode = 0
+/mob/var/currentweapon = "fists"
 
 /obj/gettable/melee_weapon/proc/WeaponCanDropCheck(obj/gettable/melee_weapon/item)
 	if(item.is_wielded)
@@ -32,6 +34,7 @@
 		usr.weapondamage = src.weapondamage
 		usr.wielded = 1
 		src.is_wielded = 1
+		usr.currentweapon = src.name
 	else
 		usr << "You are already wielding something!"
 
@@ -42,7 +45,8 @@
 			src.suffix = null
 			src.is_wielded = 0
 			usr.wielded = 0
-			usr.weapondamage = 2
+			usr.weapondamage = initial(usr.weapondamage)
+			usr.currentweapon = initial(usr.currentweapon)
 	else
 		usr << "You aren't wielding [src]!"	
 
@@ -82,4 +86,26 @@
 			remove_armour()
 	else
 		..()
-// /mob/Click()
+
+/mob/verb/attack_mode()
+	if(!usr.attackmode)
+		usr << "You will now attack upon clicking other people."
+		usr.attackmode = 1
+	else
+		usr << "You will no longer attack when clicking other people."
+		usr.attackmode = 0
+
+/mob/proc/AttackModeCheck(mob/target)
+	if(target.attackmode)
+		return 1
+	else
+		return 0
+
+/mob/Click()
+	if(AttackModeCheck(usr))
+		src.health = WeaponAttack(src.health,usr.weapondamage,src.armour)
+		view() << "[usr] attacks [src] with their [usr.currentweapon]!"
+	else if(src == usr)
+		view() << "[usr] pats themselves on the back."
+	else
+		view() << "[usr] pats [src] on the head."
