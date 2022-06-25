@@ -13,9 +13,15 @@ proc
 				carried_item
 		if(target.health <= 0)
 			view() << "[target] has died."
+			target.weapondamage = initial(target.weapondamage)
+			target.currentweapon = initial(target.currentweapon)
+			target.attackmode = initial(target.attackmode)
+			target.equip = initial(target.equip)
+			target.wielded = initial(target.wielded)
+			target.armour = initial(target.armour)
 			for(carried_item in target.contents)
 				view() << "[carried_item] worth [carried_item.value] Glorbcoins falls to the ground."
-				carried_item.loc = target.loc
+				carried_item.Move(target.loc)
 			target.loc = locate(/turf/floor/start)
 			target.health = target.maxhealth
 

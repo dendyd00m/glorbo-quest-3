@@ -25,6 +25,22 @@
 	if(ArmourCanDropCheck(src))
 		..()
 
+/obj/gettable/melee_weapon/Move()
+	if(src.is_wielded)
+		src.is_wielded = initial(src.is_wielded)
+		src.suffix = initial(src.suffix)
+		..()
+	else
+		..()
+
+/obj/gettable/armour/Move()
+	if(src.is_equipped)
+		src.is_equipped = initial(src.is_equipped)
+		src.suffix = initial(src.is_equipped)
+		..()
+	else
+		..()
+
 /obj/gettable/melee_weapon
 	var/is_wielded = 0
 /obj/gettable/melee_weapon/verb/wield()
@@ -105,6 +121,7 @@
 	if(AttackModeCheck(usr))
 		src.health = WeaponAttack(src.health,usr.weapondamage,src.armour)
 		view() << "[usr] attacks [src] with their [usr.currentweapon]!"
+		DeathCheck(src)
 	else if(src == usr)
 		view() << "[usr] pats themselves on the back."
 	else
