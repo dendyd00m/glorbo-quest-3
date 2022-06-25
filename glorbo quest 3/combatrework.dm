@@ -1,6 +1,17 @@
 /mob/var/stat/weapondamage = 2
 /mob/var/stat/wielded = 0
 
+/obj/gettable/melee_weapon/proc/WeaponCanDropCheck(obj/gettable/melee_weapon/item)
+	if(item.is_wielded)
+		usr << ("You need to unequip [item] before you can drop it!")
+		return 0
+	else
+		return 1
+
+/obj/gettable/melee_weapon/MouseDrop()
+	if(WeaponCanDropCheck(src,usr))
+		..()
+
 /obj/gettable/melee_weapon
 	var/is_wielded = 0
 /obj/gettable/melee_weapon/verb/wield()
