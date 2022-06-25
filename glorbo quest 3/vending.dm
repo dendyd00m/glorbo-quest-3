@@ -3,7 +3,7 @@
 /obj/gettable
 	var/getsound
 	Click()
-		if(src.loc in view(1))
+		if(src.loc in oview(1))
 			view() << "[usr] takes [src]."
 			Move(usr.loc)
 			view() << sound(src.getsound)
@@ -27,12 +27,13 @@
 /obj/gettable/drink/soda_can
 	icon = 'soda.dmi'
 	Click()
-		if(src.loc in usr)
+		if(src in usr)
 			if(sips > 0)
 				view() << "[usr] takes a sip of [src]."
 				sips = sips - 1
 			else
 				usr << "[src] is empty!"
+				src.suffix = "(empty)"
 		else
 			..()
 
