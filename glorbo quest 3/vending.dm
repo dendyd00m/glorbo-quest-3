@@ -9,10 +9,13 @@
 			view() << sound(src.getsound)
 			sleep(3)
 			src.loc = usr
-	MouseDrop(obj/item,null,obj/location)
-		if(location.density == 0)
-			if(item in view(1))
-				Move(item)
+	MouseDrop(obj/destination,null,obj/location)
+		if(destination.density == 0)
+			if(src in view(1))
+				if(destination.type == /turf/floor)
+					Move(destination)
+//					usr << "[destination.name] [destination.loc] [destination.type]"
+//					usr << "[location.name] [location.loc] [location.type]"
 
 /obj/gettable/bowling_ball
 	icon = 'bowlingball.dmi'
