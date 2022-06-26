@@ -3,6 +3,7 @@
 /mob/var/attackmode = 0
 /mob/var/currentweapon = "fists"
 /mob/var/currentdamagetype = DAM_TYPE_BLUNT
+/mob/var/isbleeding = 0
 
 /obj/gettable/melee_weapon/sword
 	damagetype = DAM_TYPE_SLASHING
@@ -127,9 +128,11 @@
 		return 0
 
 /mob/proc/Attack()	
+	var/attackdamage = usr.weapondamage
 	if(AttackModeCheck(usr))
 		src.health = WeaponAttack(src.health,usr.weapondamage,src.armour)
 		view() << "[usr] [usr.currentdamagetype] [src] with their [usr.currentweapon]!"
+		ApplyWeaponTypeDamage(usr.currentdamagetype,src,attackdamage)
 		DeathCheck(src)
 	else if(src == usr)
 		view() << "[usr] pats themselves on the back."
@@ -138,3 +141,22 @@
 
 /mob/Click()
 	Attack(src)
+
+proc/ApplyWeaponTypeDamage(damage,mob/target,attackdamage)
+	switch(damage)
+		if(DAM_TYPE_SLASHING)
+			if(!target.isbleeding)
+				BleedWeaponTypeDamage(target,attackdamage)
+
+
+proc/BleedWeaponTypeDamage(mob/target,attackdamage)
+	set background = 1
+	var/bleedamount = attackdamage / 2
+	target.isbleeding = 1
+	while(bleedamount)
+		world << "[bleedamount]"
+		if(bleedamount % 2 == 0)
+			world << "BLEED DAMAGE"
+		bleedamount = bleedamount - 1
+		sleep(3 * world.tick_lag)
+	target.isbleeding = 0
