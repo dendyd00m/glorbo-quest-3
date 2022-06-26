@@ -10,9 +10,9 @@
 			sleep(3)
 			src.loc = usr
 	MouseDrop(obj/destination,null,obj/location)
-		if(destination.density == 0)
-			if(src in view(1))
-				if(istype(destination,/turf))
+		if(destination in view(1))
+			if(istype(destination,/turf))
+				if(destination.density == 0)
 					Move(destination)
 					view() << sound(src.getsound)
 //					usr << "[destination.name] [destination.loc] [destination.type]"
