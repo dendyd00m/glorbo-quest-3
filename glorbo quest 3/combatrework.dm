@@ -1,5 +1,6 @@
 #define DAM_TYPE_BLUNT "bashes"
 #define DAM_TYPE_SLASHING "slashes"
+#define DAM_TYPE_PIERCING "stabs"
 
 /mob/var/stat/weapondamage = 2
 /mob/var/wielded = 0
@@ -129,7 +130,7 @@
 	else
 		return 0
 
-/mob/Click()
+/mob/proc/Attack()	
 	if(AttackModeCheck(usr))
 		src.health = WeaponAttack(src.health,usr.weapondamage,src.armour)
 		view() << "[usr] [usr.currentdamagetype] [src] with their [usr.currentweapon]!"
@@ -138,3 +139,6 @@
 		view() << "[usr] pats themselves on the back."
 	else
 		view() << "[usr] pats [src] on the head."
+
+/mob/Click()
+	Attack(src)

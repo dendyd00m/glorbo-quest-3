@@ -13,12 +13,12 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "combatrework.dm"
 #include "combat.dm"
 #include "glorbo quest 3.dm"
 #include "snow.dm"
 #include "vending.dm"
 #include "verbs.dm"
-#include "combatrework.dm"
 #include "inventory.dm"
 #include "walgreens.dmm"
 // END_INCLUDE
