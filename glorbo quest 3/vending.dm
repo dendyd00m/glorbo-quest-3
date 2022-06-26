@@ -22,9 +22,21 @@
 	icon = 'bowlingball.dmi'
 
 /obj/gettable/drink
-	value = 0
 	var/sips = 3
+	value = 0
+	desc = "A beverage."
 	getsound = 'drinkpickup.ogg'
+
+obj/gettable/drink/examine()
+	. = ..()
+	usr << HowFull(src)
+
+obj/gettable/drink/proc/HowFull(obj/gettable/drink/)
+	switch(src.sips)
+		if(3) return "It's totally full."
+		if(2) return "It's half full."
+		if(1) return "There's a little left."
+		else return "It's empty."
 
 /obj/gettable/drink/soda_can
 	icon = 'soda.dmi'
@@ -37,7 +49,7 @@
 				usr << "[src] is empty!"
 				src.suffix = "(empty)"
 				src.value = 2
-				desc = "It's an empty can! Hey, it could be worth a couple Glorbcoins."
+				desc = "Hey, it could be worth a couple Glorbcoins."
 		else
 			..()
 
