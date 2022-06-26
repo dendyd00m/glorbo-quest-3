@@ -1,7 +1,14 @@
+#define DAM_TYPE_BLUNT "bashes"
+#define DAM_TYPE_SLASHING "slashes"
+
 /mob/var/stat/weapondamage = 2
-/mob/var/stat/wielded = 0
+/mob/var/wielded = 0
 /mob/var/attackmode = 0
 /mob/var/currentweapon = "fists"
+/mob/var/currentdamagetype = DAM_TYPE_BLUNT
+
+/obj/gettable/melee_weapon/sword
+	damagetype = DAM_TYPE_SLASHING
 
 /obj/gettable/melee_weapon/proc/WeaponCanDropCheck(obj/gettable/melee_weapon/item)
 	if(item.is_wielded)
@@ -43,6 +50,8 @@
 
 /obj/gettable/melee_weapon
 	var/is_wielded = 0
+	var/damagetype = DAM_TYPE_BLUNT
+
 /obj/gettable/melee_weapon/verb/wield()
 	if(!usr.wielded)
 		view() << "[usr] wields [src]."
@@ -51,6 +60,7 @@
 		usr.wielded = 1
 		src.is_wielded = 1
 		usr.currentweapon = src.name
+		usr.currentdamagetype = src.damagetype
 	else
 		usr << "You are already wielding something!"
 
@@ -63,6 +73,7 @@
 			usr.wielded = 0
 			usr.weapondamage = initial(usr.weapondamage)
 			usr.currentweapon = initial(usr.currentweapon)
+			usr.currentdamagetype = initial(usr.currentdamagetype)
 	else
 		usr << "You aren't wielding [src]!"	
 
@@ -84,6 +95,7 @@
 		usr.equip = 1
 	else
 		usr << "You are already wearing something!"
+
 /obj/gettable/armour/verb/remove_armour()
 	if(usr.equip)
 		view () << "[usr] doffs [src]."
@@ -120,7 +132,7 @@
 /mob/Click()
 	if(AttackModeCheck(usr))
 		src.health = WeaponAttack(src.health,usr.weapondamage,src.armour)
-		view() << "[usr] attacks [src] with their [usr.currentweapon]!"
+		view() << "[usr] [usr.currentdamagetype] [src] with their [usr.currentweapon]!"
 		DeathCheck(src)
 	else if(src == usr)
 		view() << "[usr] pats themselves on the back."

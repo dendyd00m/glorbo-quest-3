@@ -42,6 +42,7 @@ obj/gettable/melee_weapon
 	sword
 		icon = 'sword.dmi'
 		weapondamage = 10
+
 obj/gettable/armour
 	var
 		stat
