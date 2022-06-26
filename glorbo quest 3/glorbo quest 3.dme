@@ -13,6 +13,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "_define.dm"
 #include "combatrework.dm"
 #include "combat.dm"
 #include "glorbo quest 3.dm"

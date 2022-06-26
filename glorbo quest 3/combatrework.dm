@@ -1,7 +1,3 @@
-#define DAM_TYPE_BLUNT "bashes"
-#define DAM_TYPE_SLASHING "slashes"
-#define DAM_TYPE_PIERCING "stabs"
-
 /mob/var/stat/weapondamage = 2
 /mob/var/wielded = 0
 /mob/var/attackmode = 0
