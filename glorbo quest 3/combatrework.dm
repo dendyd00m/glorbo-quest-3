@@ -102,7 +102,7 @@
 		src.is_equipped = 0
 		usr.equip = 0
 	else
-		usr << "You aren't wearing anything!"
+		usr << "You aren't wearing [src]!"
 
 /obj/gettable/armour/Click()
 	if(src.loc == usr)
@@ -128,17 +128,18 @@
 		return 0
 
 /mob/proc/Attack()	
-	var/attackdamage = usr.weapondamage
+	var/attack_stamina_cost = (usr.weapondamage * 2)
 	if(AttackModeCheck(usr))
-		if(CheckStamina(usr,10))
-			StaminaCost(usr,10)
+		if(CheckStamina(usr,attack_stamina_cost))
+			StaminaCost(usr,attack_stamina_cost)
 			src.health = WeaponAttack(src.health,usr.weapondamage,src.armour)
 			view() << "[usr] [usr.currentdamagetype] [src] with their [usr.currentweapon]!"
-			ApplyWeaponTypeDamage(usr.currentdamagetype,src,attackdamage)
+			ApplyWeaponTypeDamage(usr.currentdamagetype,src,usr.weapondamage)
 			DeathCheck(src)
 			RegainStamina(usr)
 		else
 			view() << "[usr] tried to attack [src], but is too tired!"
+			RegainStamina(usr)
 	else if(src == usr)
 		view() << "[usr] pats themselves on the back."
 	else

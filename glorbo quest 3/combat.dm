@@ -4,8 +4,9 @@ proc
 	WeaponAttack(health,weapondamage,armour)
 		var
 			real_damage
-		real_damage = weapondamage - armour
-		health = health - real_damage
+		real_damage = roll(1,weapondamage) - armour
+		if(real_damage > 0)
+			health = health - real_damage
 		return health
 	DeathCheck(mob/target)
 		var

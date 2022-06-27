@@ -1,6 +1,6 @@
 /mob/var/stat/stamina = 100
 /mob/var/stat/maxstamina = 100
-/mob/var/stat/stamina_regain_speed = 6
+/mob/var/stat/stamina_regain_speed = 10
 /mob/var/isresting = 0
 
 /proc/StaminaCost(mob/target,cost)
@@ -18,7 +18,7 @@
 		src.isresting = 1
 		while(src.stamina < src.maxstamina)
 			sleep(10)
-			src.stamina += src.stamina_regain_speed
+			src.stamina += roll(1,src.stamina_regain_speed)
 			if(src.stamina > src.maxstamina)
 				src.stamina = src.maxstamina
 		src.isresting = 0
