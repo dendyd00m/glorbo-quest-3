@@ -2,6 +2,7 @@
 	statpanel("Stats")
 	stat("Health:", "[health]/[maxhealth]")
 	stat("Magic:", "[magic]/[maxmagic]")
+	stat("Stamina:", "[stamina]/[maxstamina]")
 	stat("")
 	stat("Current Armour:", "[armour]")
 	stat("Effective Damage:", "[weapondamage]")

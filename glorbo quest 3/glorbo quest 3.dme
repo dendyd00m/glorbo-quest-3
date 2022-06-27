@@ -18,6 +18,7 @@
 #include "combat.dm"
 #include "glorbo quest 3.dm"
 #include "snow.dm"
+#include "stamina.dm"
 #include "vending.dm"
 #include "verbs.dm"
 #include "inventory.dm"

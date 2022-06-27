@@ -130,10 +130,15 @@
 /mob/proc/Attack()	
 	var/attackdamage = usr.weapondamage
 	if(AttackModeCheck(usr))
-		src.health = WeaponAttack(src.health,usr.weapondamage,src.armour)
-		view() << "[usr] [usr.currentdamagetype] [src] with their [usr.currentweapon]!"
-		ApplyWeaponTypeDamage(usr.currentdamagetype,src,attackdamage)
-		DeathCheck(src)
+		if(CheckStamina(usr,10))
+			StaminaCost(usr,10)
+			src.health = WeaponAttack(src.health,usr.weapondamage,src.armour)
+			view() << "[usr] [usr.currentdamagetype] [src] with their [usr.currentweapon]!"
+			ApplyWeaponTypeDamage(usr.currentdamagetype,src,attackdamage)
+			DeathCheck(src)
+			RegainStamina(usr)
+		else
+			view() << "[usr] tried to attack [src], but is too tired!"
 	else if(src == usr)
 		view() << "[usr] pats themselves on the back."
 	else
@@ -159,7 +164,7 @@ proc/BleedWeaponTypeDamage(mob/target,attackdamage)
 			view(target) << "[target] is bleeding!"
 		bleedamount = bleedamount - 1
 		sleep(30 * world.tick_lag)
-	view(target) << "[target] stop bleeding."
+	view(target) << "[target] stops bleeding."
 	target.isbleeding = 0
 
 proc/Hurt(mob/target,damage)
