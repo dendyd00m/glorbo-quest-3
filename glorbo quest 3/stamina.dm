@@ -13,12 +13,13 @@
 	else
 		return 1
 
-/mob/proc/RegainStamina()
-	if(!src.isresting)
-		src.isresting = 1
-		while(src.stamina < src.maxstamina)
-			sleep(10)
-			src.stamina += roll(1,src.stamina_regain_speed)
-			if(src.stamina > src.maxstamina)
-				src.stamina = src.maxstamina
-		src.isresting = 0
+/mob/proc/RegainStamina(mob/target)
+	if(!target.isresting)
+		set background = 1
+		target.isresting = 1
+		while(target.stamina < target.maxstamina)
+			sleep(30 * world.tick_lag)
+			target.stamina += roll(1,target.stamina_regain_speed)
+			if(target.stamina > target.maxstamina)
+				target.stamina = target.maxstamina
+		target.isresting = 0

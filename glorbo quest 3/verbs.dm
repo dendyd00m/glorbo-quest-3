@@ -68,6 +68,8 @@ mob
 		look_up()
 			usr << weather
 		say(message as text)
+			if(!message)
+				return
 			world << "[usr] says, '[message]'"
 		telepathic_message(mob/M in world,msg as text)
 			view() << "[usr] looks like \he's in deep concentration for a moment."

@@ -134,9 +134,9 @@
 			StaminaCost(usr,attack_stamina_cost)
 			src.health = WeaponAttack(src.health,usr.weapondamage,src.armour)
 			view() << "[usr] [usr.currentdamagetype] [src] with their [usr.currentweapon]!"
+			RegainStamina(usr)
 			ApplyWeaponTypeDamage(usr.currentdamagetype,src,usr.weapondamage)
 			DeathCheck(src)
-			RegainStamina(usr)
 		else
 			view() << "[usr] tried to attack [src], but is too tired!"
 			RegainStamina(usr)
@@ -158,11 +158,14 @@ proc/ApplyWeaponTypeDamage(damage,mob/target,attackdamage)
 proc/BleedWeaponTypeDamage(mob/target,attackdamage)
 	set background = 1
 	var/bleedamount = attackdamage / 2
+	var/bleeddamage = attackdamage
 	target.isbleeding = 1
 	while(bleedamount)
 		if(bleedamount % 2 == 0)
-			Hurt(target,2)
+			bleeddamage = round(bleeddamage / 2)
+			Hurt(target,bleeddamage)
 			view(target) << "[target] is bleeding!"
+			target << "[bleeddamage]"
 		bleedamount = bleedamount - 1
 		sleep(30 * world.tick_lag)
 	view(target) << "[target] stops bleeding."
