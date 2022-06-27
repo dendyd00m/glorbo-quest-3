@@ -149,6 +149,7 @@
 	Attack(src)
 
 proc/ApplyWeaponTypeDamage(damage,mob/target,attackdamage)
+	set waitfor = 0
 	switch(damage)
 		if(DAM_TYPE_SLASHING)
 			if(!target.isbleeding)
@@ -165,7 +166,6 @@ proc/BleedWeaponTypeDamage(mob/target,attackdamage)
 			bleeddamage = round(bleeddamage / 2)
 			Hurt(target,bleeddamage)
 			view(target) << "[target] is bleeding!"
-			target << "[bleeddamage]"
 		bleedamount = bleedamount - 1
 		sleep(30 * world.tick_lag)
 	view(target) << "[target] stops bleeding."

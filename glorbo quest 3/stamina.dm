@@ -14,6 +14,7 @@
 		return 1
 
 /mob/proc/RegainStamina(mob/target)
+	set waitfor = 0
 	if(!target.isresting)
 		set background = 1
 		target.isresting = 1
