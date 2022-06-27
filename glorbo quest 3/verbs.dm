@@ -80,9 +80,10 @@ mob
 			set desc = "(\"new name\") Change your name."
 			name = icname || usr.key
 			usr << "Your IC name is now [icname]."
-		attack(mob/target in view(1))
+/*		attack(mob/target in view(1))
 			view() << "[usr] attacks [target]!"
 			target.Hurt(10)
+*/
 
 mob
 	guard
@@ -111,7 +112,7 @@ mob
 		life = 100
 
 //damaging a mob and checking for death (on death, relocates mob to morgue area)
-	proc
+/*	proc
 		Hurt(D)
 			life = life - D
 			usr << "Ouch! You take [D] damage and have [life] hit points left!"
@@ -119,14 +120,16 @@ mob
 				view() << "[src] has died."
 				src.loc = locate(/turf/floor/start)
 				life = 100
+*/
 
 mob
 	DM
-		Hurt()
+/*		Hurt()
 			if(vulnerable)
 				..()
 			else
 				view() << "[src] seems invulnerable to damage!" //GOD MODE!!!!!!!
+*/
 		var
 			unpotato_icon
 			unpotato_name
@@ -255,7 +258,7 @@ obj
 				set src in view(1)
 				view() << "[usr] guzzles down [src]"
 				usr << "AGH! THAT WAS POISON!"
-				usr.Hurt(100)
+				Hurt(usr,100)
 				del src
 
 	torch

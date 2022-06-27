@@ -154,9 +154,13 @@ proc/BleedWeaponTypeDamage(mob/target,attackdamage)
 	var/bleedamount = attackdamage / 2
 	target.isbleeding = 1
 	while(bleedamount)
-		world << "[bleedamount]"
 		if(bleedamount % 2 == 0)
-			world << "BLEED DAMAGE"
+			Hurt(target,2)
+			view(target) << "[target] is bleeding!"
 		bleedamount = bleedamount - 1
-		sleep(3 * world.tick_lag)
+		sleep(30 * world.tick_lag)
+	view(target) << "[target] stop bleeding."
 	target.isbleeding = 0
+
+proc/Hurt(mob/target,damage)
+	target.health = target.health - damage
