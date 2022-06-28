@@ -18,6 +18,8 @@
 "r" = (/obj/gettable/armour/chainmail,/turf/floor/start,/area/dark)
 "s" = (/obj/vending_machine,/turf/floor,/area/dark)
 "t" = (/obj/gettable/bowling_ball,/turf/floor,/area/dark)
+"u" = (/obj/gettable/guns/flintlock,/turf/floor,/area/dark)
+"v" = (/obj/gettable/stackable/ammunition/musket_rounds,/turf/floor,/area/dark)
 
 (1,1,1) = {"
 cccccccccccccccccccc
@@ -32,8 +34,8 @@ cccccnccgccddcdcdcdc
 ccccicccccccccccccdc
 ccccccmeemccddddhcdc
 ccccppcoccccesecccdc
-cccccccccocccccccccc
-ccccrqccccccctcccccc
+cccccccucocccccccccc
+ccccrqcvccccctcccccc
 cccccccccccccccccccc
 cccccccccccccccfcccc
 bbbbbbbbbbbbbbbbbbbb
