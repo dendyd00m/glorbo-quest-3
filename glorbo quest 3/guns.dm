@@ -5,13 +5,13 @@ obj/gettable/guns
         var/ammo_fill_amount = ammo_maximum - ammo_count
         if(ammo_count < ammo_maximum)
             if(ammo.amount >= ammo_fill_amount)
-                view() << "[usr] loads [ammo_fill_amount] [ammo.name] into [src]"
                 ammo_count += ammo_fill_amount
                 ammo.amount -= ammo_fill_amount
-            else if(ammo.amount < ammo_fill_amount)
                 view() << "[usr] loads [ammo_fill_amount] [ammo.name] into [src]"
+            else if(ammo.amount < ammo_fill_amount)
                 ammo_fill_amount = ammo.amount
                 ammo.amount -= ammo_fill_amount
+                view() << "[usr] loads [ammo_fill_amount] [ammo.name] into [src]"
 
 obj/gettable/stackable/ammunition
     var/amount = 1
@@ -22,4 +22,3 @@ obj/gettable/stackable/ammunition/musket_rounds
 
 obj/gettable/guns/flintlock
     icon = 'flintlock.dmi'
-    ammo_maximum = 1
