@@ -158,7 +158,7 @@ proc/ApplyWeaponTypeDamage(damage,mob/target,attackdamage)
 
 proc/BleedWeaponTypeDamage(mob/target,attackdamage)
 	set background = 1
-	var/bleedamount = attackdamage / 2
+	var/bleedamount = round(attackdamage / 2)
 	var/bleeddamage = attackdamage
 	target.isbleeding = 1
 	while(bleedamount)

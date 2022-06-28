@@ -1,6 +1,6 @@
 /mob/var/stat/stamina = 100
 /mob/var/stat/maxstamina = 100
-/mob/var/stat/stamina_regain_speed = 10
+/mob/var/stat/stamina_regain_speed = 20
 /mob/var/isresting = 0
 
 /proc/StaminaCost(mob/target,cost)
