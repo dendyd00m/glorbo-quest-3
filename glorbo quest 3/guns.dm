@@ -25,6 +25,7 @@ obj/gettable/guns/proc/Reload(obj/gettable/stackable/ammunition/ammo)
 
 obj/gettable/stackable/ammunition
 	var/amount = 1
+	desc = "Some ammunition."
 
 obj/gettable/stackable/ammunition/musket_rounds
 	icon = 'musket_rounds.dmi'
@@ -32,6 +33,7 @@ obj/gettable/stackable/ammunition/musket_rounds
 
 obj/gettable/guns/flintlock
 	icon = 'flintlock.dmi'
+	desc = "A flintlock pistol."
 
 obj/gettable/guns/examine()
 	. = ..()
@@ -39,4 +41,7 @@ obj/gettable/guns/examine()
 		usr << "[src] is unloaded!"
 	else
 		usr << "[src] has [src.ammo_count] shots left."
-	usr << "[src.ammo_count]"
+
+obj/gettable/stackable/ammunition/examine()
+	. = ..()
+	usr << "There's [src.amount] left."
