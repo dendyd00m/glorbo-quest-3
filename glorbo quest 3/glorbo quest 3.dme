@@ -19,6 +19,7 @@
 #include "glorbo quest 3.dm"
 #include "guns.dm"
 #include "snow.dm"
+#include "stackables.dm"
 #include "stamina.dm"
 #include "vending.dm"
 #include "verbs.dm"
