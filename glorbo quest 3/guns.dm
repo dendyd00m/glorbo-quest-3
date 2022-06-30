@@ -4,8 +4,10 @@ obj/gettable/guns
 	var/accepted_ammo_type
 	verb/reload()
 		var/list/reloadables = list()
-		for(var/obj/gettable/stackable/ammunition/ammo in view(1))
+		var/obj/gettable/stackable/ammunition/ammo
+		for(ammo in view(1))
 			reloadables += ammo
+			usr << "[ammo]"
 		var/chosen_ammo = input("Choose an ammo to reload [src]", "reload [src]") as null|obj in reloadables
 		if(!chosen_ammo)
 			return
@@ -18,13 +20,17 @@ obj/gettable/guns/proc/Reload(obj/gettable/stackable/ammunition/ammo)
 			if(ammo.amount >= ammo_fill_amount)
 				ammo_count += ammo_fill_amount
 				ammo.amount -= ammo_fill_amount
-				view() << "[usr] loads [ammo_fill_amount] [ammo.name] into [src]."
+				view() << "[usr] loads [ammo.name] into [src]."
+				ammo.name = initial(ammo.name)
+				ammo.name = "[ammo.name] x[ammo.amount]"
 				ammo.StackZeroCheck(ammo)
 			else if(ammo.amount < ammo_fill_amount)
 				ammo_fill_amount = ammo.amount
 				ammo_count += ammo_fill_amount
 				ammo.amount -= ammo_fill_amount
-				view() << "[usr] loads [ammo_fill_amount] [ammo.name] into [src]."
+				view() << "[usr] loads [ammo.name] into [src]."
+				ammo.name = initial(ammo.name)
+				ammo.name = "[ammo.name] x[ammo.amount]"
 				ammo.StackZeroCheck(ammo)
 	else
 		usr << "[ammo] doen't fit into [src]!"

@@ -20,6 +20,7 @@ proc
 			target.equip = initial(target.equip)
 			target.wielded = initial(target.wielded)
 			target.armour = initial(target.armour)
+			target.currentdamagetype = initial(target.currentdamagetype)
 			for(carried_item in target.contents)
 				view() << "[carried_item] worth [carried_item.value] Glorbcoins falls to the ground."
 				carried_item.Move(target.loc)
