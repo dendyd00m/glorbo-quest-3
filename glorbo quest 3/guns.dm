@@ -1,7 +1,7 @@
 obj/gettable/guns
 	var/ammo_count = 0
 	var/ammo_maximum = 5
-	var/accepted_ammo_type
+	var/accepted_ammo_type = /obj/gettable/stackable/ammunition/musket_rounds
 	verb/reload()
 		var/list/reloadables = list()
 		var/obj/gettable/stackable/ammunition/ammo
@@ -34,17 +34,25 @@ obj/gettable/guns/proc/Reload(obj/gettable/stackable/ammunition/ammo)
 	else
 		usr << "[ammo] doen't fit into [src]!"
 
+obj/gettable/guns/verb/unload()
+	if(ammo_count)
+		view() << "[usr] unloads [src]."
+		new accepted_ammo_type(src.loc,ammo_count)
+		ammo_count = 0
+	else
+		usr << "[src] is already empty!"
+
 obj/gettable/stackable/ammunition
 	var/ammo_type
 	desc = "Some ammunition."
 
 obj/gettable/stackable/ammunition/musket_rounds
-	ammo_type = "musket_rounds"
+	ammo_type = /obj/gettable/stackable/ammunition/musket_rounds
 	icon = 'musket_rounds.dmi'
 	amount = 3
 
 obj/gettable/guns/flintlock
-	accepted_ammo_type = "musket_rounds"
+	accepted_ammo_type = /obj/gettable/stackable/ammunition/musket_rounds
 	icon = 'flintlock.dmi'
 	desc = "A flintlock pistol."
 
