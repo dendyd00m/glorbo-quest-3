@@ -26,3 +26,21 @@ obj/gettable/stackable/New(loc,stacksize=amount)
 	name = initial(name)
 	name = "[name] x[src.amount]"
 	..()
+
+obj/gettable/stackable/verb/combine_stacks()
+	var/list/combinable_stacks = list()
+	var/obj/gettable/stackable/stacks
+	for(stacks in view(1))
+		if(stacks != src)
+			combinable_stacks += stacks
+	var/chosen_stack = input("Choose a stack to combine", "combine stacks") as null|obj in combinable_stacks
+	if(!chosen_stack)
+		return
+	CombineStacks(src,chosen_stack)
+
+obj/gettable/stackable/proc/CombineStacks(obj/gettable/stackable/original_stack,obj/gettable/stackable/second_stack)
+	view() << "[usr] combines [original_stack] into [second_stack]."
+	original_stack.amount += second_stack.amount
+	original_stack.name = initial(original_stack.name)
+	original_stack.name = "[original_stack.name] x[original_stack.amount]"
+	del second_stack

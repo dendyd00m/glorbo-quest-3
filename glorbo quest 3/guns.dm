@@ -7,7 +7,6 @@ obj/gettable/guns
 		var/obj/gettable/stackable/ammunition/ammo
 		for(ammo in view(1))
 			reloadables += ammo
-			usr << "[ammo]"
 		var/chosen_ammo = input("Choose an ammo to reload [src]", "reload [src]") as null|obj in reloadables
 		if(!chosen_ammo)
 			return
