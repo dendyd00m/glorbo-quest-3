@@ -1,3 +1,5 @@
+mob/var/is_aiming = 0
+
 obj/gettable/guns
 	var/ammo_count = 0
 	var/ammo_maximum = 5
@@ -9,6 +11,7 @@ obj/gettable/guns
 			reloadables += ammo
 		var/chosen_ammo = input("Choose an ammo to reload [src]", "reload [src]") as null|obj in reloadables
 		if(!chosen_ammo)
+			usr << "You try to reload [src], but you have no ammo."
 			return
 		Reload(chosen_ammo)
 
@@ -53,6 +56,12 @@ obj/gettable/stackable/ammunition/musket_rounds
 	icon = 'musket_rounds.dmi'
 	amount = 3
 
+obj/gettable/stackable/ammunition/crossbow_bolts
+	ammo_type = /obj/gettable/stackable/ammunition/crossbow_bolts
+	icon = 'crossbow_bolts.dmi'
+	amount = 1
+
+
 obj/gettable/guns/flintlock
 	accepted_ammo_type = /obj/gettable/stackable/ammunition/musket_rounds
 	icon = 'flintlock.dmi'
@@ -68,3 +77,39 @@ obj/gettable/guns/examine()
 obj/gettable/stackable/ammunition/examine()
 	. = ..()
 	usr << "There's [src.amount] left."
+
+obj/gettable/guns/var/aimed = 0
+
+obj/gettable/guns/verb/start_aiming()
+	if(!usr.wielded)
+		view() << "[usr] starts aiming [src]."
+		usr.is_aiming = 1
+		src.suffix = "(aiming)"
+		usr.wielded = 1
+		src.aimed = 1
+		usr.currentweapon = "aiming [src]"
+	else
+		usr << "You are already wielding something!"
+
+obj/gettable/guns/verb/stop_aiming()
+	if(src.aimed)
+		if(usr.wielded)
+			view() << "[usr] stops aiming [src]"
+			usr.is_aiming = 0
+			src.suffix = null
+			src.aimed = 0
+			usr.wielded = 0
+			usr.currentweapon = initial(usr.currentweapon)
+		else
+			usr << "You aren't aiming [src]!"
+
+obj/gettable/guns/Click()
+	if(src.loc == usr)
+		if(src.ammo_count == 0)
+			reload(src)
+		else if(!src.aimed)
+			start_aiming()
+		else
+			stop_aiming()
+	else
+		..()

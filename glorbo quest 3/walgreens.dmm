@@ -20,6 +20,7 @@
 "t" = (/obj/gettable/bowling_ball,/turf/floor,/area/dark)
 "u" = (/obj/gettable/guns/flintlock,/turf/floor,/area/dark)
 "v" = (/obj/gettable/stackable/ammunition/musket_rounds,/turf/floor,/area/dark)
+"w" = (/obj/gettable/stackable/ammunition/crossbow_bolts,/turf/floor,/area/dark)
 
 (1,1,1) = {"
 cccccccccccccccccccc
@@ -35,7 +36,7 @@ ccccicccccccccccccdc
 ccccccmeemccddddhcdc
 ccccppcoccccesecccdc
 cccccccucocccccccccc
-ccccrqcvvcccctcccccc
+ccccrqcvvwwcctcccccc
 cccccccccccccccccccc
 cccccccccccccccfcccc
 bbbbbbbbbbbbbbbbbbbb

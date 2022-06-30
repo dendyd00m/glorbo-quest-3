@@ -32,7 +32,8 @@ obj/gettable/stackable/verb/combine_stacks()
 	var/obj/gettable/stackable/stacks
 	for(stacks in view(1))
 		if(stacks != src)
-			combinable_stacks += stacks
+			if(istype(stacks,src))
+				combinable_stacks += stacks
 	var/chosen_stack = input("Choose a stack to combine", "combine stacks") as null|obj in combinable_stacks
 	if(!chosen_stack)
 		return
