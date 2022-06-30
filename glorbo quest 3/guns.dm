@@ -31,6 +31,8 @@ obj/gettable/guns/proc/Reload(obj/gettable/stackable/ammunition/ammo)
 				ammo.name = initial(ammo.name)
 				ammo.name = "[ammo.name] x[ammo.amount]"
 				ammo.StackZeroCheck(ammo)
+		else
+			usr << "[src] is already fully loaded!"
 	else
 		usr << "[ammo] doen't fit into [src]!"
 
@@ -61,7 +63,7 @@ obj/gettable/guns/examine()
 	if(!src.ammo_count)
 		usr << "[src] is unloaded!"
 	else
-		usr << "[src] has [src.ammo_count] shots left."
+		usr << "[src] has [src.ammo_count]/[src.ammo_maximum] shots left."
 
 obj/gettable/stackable/ammunition/examine()
 	. = ..()

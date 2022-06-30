@@ -44,3 +44,21 @@ obj/gettable/stackable/proc/CombineStacks(obj/gettable/stackable/original_stack,
 	original_stack.name = initial(original_stack.name)
 	original_stack.name = "[original_stack.name] x[original_stack.amount]"
 	del second_stack
+
+obj/gettable/stackable/MouseDrop(destination)
+	if(destination in view(1))
+		if(istype(destination,src))
+			CombineStacks(src,destination)
+		else
+			..()
+	else
+		..()
+
+obj/gettable/stackable/ammunition/MouseDrop(obj/gettable/guns/destination)
+	if(destination in view(1))
+		if(istype(destination,/obj/gettable/guns))
+			destination.Reload(src)
+		else
+			..()
+	else
+		..()
