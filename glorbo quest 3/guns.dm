@@ -83,6 +83,7 @@ obj/gettable/guns/var/aimed = 0
 obj/gettable/guns/verb/start_aiming()
 	if(!usr.wielded)
 		view() << "[usr] starts aiming [src]."
+		usr.equipped_gun = src
 		usr.is_aiming = 1
 		src.suffix = "(aiming)"
 		usr.wielded = 1
@@ -95,6 +96,7 @@ obj/gettable/guns/verb/stop_aiming()
 	if(src.aimed)
 		if(usr.wielded)
 			view() << "[usr] stops aiming [src]"
+			usr.equipped_gun = initial(usr.equipped_gun)
 			usr.is_aiming = 0
 			src.suffix = null
 			src.aimed = 0
@@ -113,3 +115,37 @@ obj/gettable/guns/Click()
 			stop_aiming()
 	else
 		..()
+
+
+mob/var/target
+mob/var/obj/gettable/guns/equipped_gun
+
+client/Click(destination)
+	if(usr.is_aiming)
+		usr.target = destination
+		if(destination in usr.contents)
+			..()
+		else
+			usr.equipped_gun.shoot()
+	else
+		..()
+
+obj/gettable/guns/verb/shoot()
+	var/destination = usr.target
+	var/fire_message = "*POP*"
+	var/out_of_ammo_message = "*CLICK*"
+	if(usr.is_aiming)
+		if(usr.target)
+			if(ammo_count > 0)
+				view() << "[fire_message]"
+				view() << "[usr] shoots at [destination]"
+				src.ammo_count -= 1
+			else
+				view() << "[out_of_ammo_message]"
+
+
+obj/projectile
+	icon = 'projectile.dmi'
+
+obj/projectile/New(loc,ref,target)
+	walk_towards(ref,target)
