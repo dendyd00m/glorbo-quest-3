@@ -116,16 +116,15 @@ obj/gettable/guns/Click()
 	else
 		..()
 
-
 mob/var/target
 mob/var/obj/gettable/guns/equipped_gun
 
 client/Click(destination)
 	if(usr.is_aiming)
-		usr.target = destination
 		if(destination in usr.contents)
 			..()
 		else
+			usr.target = destination
 			usr.equipped_gun.shoot()
 	else
 		..()
@@ -137,15 +136,27 @@ obj/gettable/guns/verb/shoot()
 	if(usr.is_aiming)
 		if(usr.target)
 			if(ammo_count > 0)
+				LaunchProjectile(destination)
 				view() << "[fire_message]"
 				view() << "[usr] shoots at [destination]"
 				src.ammo_count -= 1
 			else
 				view() << "[out_of_ammo_message]"
 
+obj/gettable/guns/proc/LaunchProjectile(destination)
+	var/bullet = /obj/projectile
+	new bullet(src.loc,null,destination)
 
 obj/projectile
 	icon = 'projectile.dmi'
+	density = 1
 
-obj/projectile/New(loc,ref,target)
-	walk_towards(ref,target)
+obj/projectile/New(loc,ref,destination)
+	set waitfor = 0
+	walk_towards(src,destination)
+	sleep(10)
+	del src
+
+obj/projectile/Bump(atom/target)
+	view(target) << "[src] hits [target]!"
+	del src
