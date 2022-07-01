@@ -173,3 +173,4 @@ proc/BleedWeaponTypeDamage(mob/target,attackdamage)
 
 proc/Hurt(mob/target,damage)
 	target.health = target.health - damage
+	DeathCheck(target)

@@ -1,8 +1,10 @@
+sound/environment = 22
 mob/var/is_aiming = 0
 
 obj/gettable/guns
 	var/ammo_count = 0
 	var/ammo_maximum = 5
+	var/damage = 5
 	var/accepted_ammo_type = /obj/gettable/stackable/ammunition/musket_rounds
 	verb/reload()
 		var/list/reloadables = list()
@@ -64,6 +66,7 @@ obj/gettable/stackable/ammunition/crossbow_bolts
 
 obj/gettable/guns/flintlock
 	accepted_ammo_type = /obj/gettable/stackable/ammunition/musket_rounds
+	damage = 20
 	icon = 'flintlock.dmi'
 	desc = "A flintlock pistol."
 
@@ -136,27 +139,48 @@ obj/gettable/guns/verb/shoot()
 	if(usr.is_aiming)
 		if(usr.target)
 			if(ammo_count > 0)
-				LaunchProjectile(destination)
+				LaunchProjectile(destination,damage)
+				CreateSmoke(destination)
 				view() << "[fire_message]"
-				view() << "[usr] shoots at [destination]"
+				view() << "[usr] shoots [src] at [destination]"
 				src.ammo_count -= 1
 			else
 				view() << "[out_of_ammo_message]"
 
-obj/gettable/guns/proc/LaunchProjectile(destination)
+obj/gettable/guns/proc/LaunchProjectile(destination,damage)
 	var/bullet = /obj/projectile
-	new bullet(src.loc,null,destination)
+	new bullet(src.loc,destination,damage)
+
+obj/gettable/guns/proc/CreateSmoke(destination)
+	var/smoke = /obj/smoke
+	new smoke(src.loc,destination)
 
 obj/projectile
+	var/power
 	icon = 'projectile.dmi'
 	density = 1
 
-obj/projectile/New(loc,ref,destination)
+obj/smoke
+	icon = 'smoke.dmi'
+	density = 0
+	opacity = 1
+
+obj/smoke/New(loc,destination)
 	set waitfor = 0
+	step_towards(src,destination)
+	sleep(10)
+	step_towards(src,destination)
+	sleep(3)
+	del src
+
+obj/projectile/New(loc,destination,damage)
+	set waitfor = 0
+	power = 10 + roll(1,damage)
 	walk_towards(src,destination)
 	sleep(10)
 	del src
 
 obj/projectile/Bump(atom/target)
-	view(target) << "[src] hits [target]!"
+	view(target) << "[src] hits [target] for [power]!"
+	Hurt(target,power)
 	del src
