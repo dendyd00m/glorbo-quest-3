@@ -139,7 +139,7 @@ obj/gettable/guns/verb/shoot()
 	if(usr.is_aiming)
 		if(usr.target)
 			if(ammo_count > 0)
-				LaunchProjectile(destination,damage)
+				LaunchBullet(destination,damage)
 				CreateSmoke(destination)
 				view() << "[fire_message]"
 				view() << "[usr] shoots [src] at [destination]"
@@ -147,7 +147,7 @@ obj/gettable/guns/verb/shoot()
 			else
 				view() << "[out_of_ammo_message]"
 
-obj/gettable/guns/proc/LaunchProjectile(destination,damage)
+obj/gettable/guns/proc/LaunchBullet(destination,damage)
 	var/bullet = /obj/projectile
 	new bullet(src.loc,destination,damage)
 
@@ -184,3 +184,72 @@ obj/projectile/Bump(atom/target)
 	view(target) << "[src] hits [target] for [power]!"
 	Hurt(target,power)
 	del src
+
+obj/structure/guns
+	var/ammo_count = 0
+	var/ammo_maximum = 1
+	var/accepted_ammo_type = /obj/gettable/ammunition/cannonball
+
+obj/structure/guns/cannon
+	icon = 'smoke.dmi'
+	density = 1
+	desc = "A large cannon."
+
+obj/structure/guns/cannon/Cross()
+	step_away(src,usr)
+
+obj/structure/guns/examine()
+	..()
+	if(ammo_count)
+		usr << "[src] is loaded."
+	else
+		usr << "[src] is unloaded."
+
+obj/structure/guns/cannon/MouseDrop(obj/destination)
+	if(destination in view(1))
+		if(istype(destination,/turf))
+			if(!destination.density)
+				Move(destination)
+
+obj/structure/guns/verb/reload()
+	set src in view(1)
+	var/obj/gettable/ammunition/ammo
+	var/list/reloadables = list()
+	for(ammo in view(1))
+		reloadables += ammo
+	var/chosen_ammo = input("Select ammo to reload [src]:","reload [src]") as null|obj in reloadables
+	if(!chosen_ammo)
+		usr << "You try to reload [src], but you have no suitable ammo."
+		return
+	else
+		ConstructedGunReload(chosen_ammo)
+
+/obj/structure/guns/proc/ConstructedGunReload(obj/gettable/ammunition/ammo)
+	if(ammo.ammo_type == accepted_ammo_type)
+		if(ammo_count < ammo_maximum)
+			view() << "[usr] loads [ammo] into [src]."
+			ammo_count += 1
+			del ammo
+		else
+			usr << "[src] is already loaded!"
+	else
+		usr << "[ammo] doesn't fit into [src]!"
+
+obj/gettable/ammunition/MouseDrop(obj/structure/guns/destination)
+	if(istype(destination,/obj/structure/guns))
+		destination.ConstructedGunReload(src)
+
+obj/structure/guns/verb/unload()
+	set src in view(1)
+	if(ammo_count)
+		view() << "[usr] unloads [src]."
+		new accepted_ammo_type(src.loc)
+		ammo_count = 0
+	else
+		usr << "[src] isn't loaded!"
+
+obj/gettable/ammunition
+	var/ammo_type = /obj/gettable/ammunition/cannonball
+
+obj/gettable/ammunition/cannonball
+	icon = 'musket_rounds.dmi'
