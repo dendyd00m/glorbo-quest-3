@@ -148,14 +148,14 @@ obj/gettable/guns/verb/shoot()
 				view() << "[out_of_ammo_message]"
 
 obj/gettable/guns/proc/LaunchBullet(destination,damage)
-	var/bullet = /obj/projectile
+	var/bullet = /obj/bullet
 	new bullet(src.loc,destination,damage)
 
-obj/gettable/guns/proc/CreateSmoke(destination)
+obj/proc/CreateSmoke(destination)
 	var/smoke = /obj/smoke
 	new smoke(src.loc,destination)
 
-obj/projectile
+obj/bullet
 	var/power
 	icon = 'projectile.dmi'
 	density = 1
@@ -173,14 +173,14 @@ obj/smoke/New(loc,destination)
 	sleep(3)
 	del src
 
-obj/projectile/New(loc,destination,damage)
+obj/bullet/New(loc,destination,damage)
 	set waitfor = 0
 	power = 10 + roll(1,damage)
 	walk_towards(src,destination)
 	sleep(10)
 	del src
 
-obj/projectile/Bump(atom/target)
+obj/bullet/Bump(atom/target)
 	view(target) << "[src] hits [target] for [power]!"
 	Hurt(target,power)
 	del src
@@ -189,11 +189,13 @@ obj/structure/guns
 	var/ammo_count = 0
 	var/ammo_maximum = 1
 	var/accepted_ammo_type = /obj/gettable/ammunition/cannonball
+	var/fire_message = "**CHANGE OBJ/STRUCTURE/GUNS/ FIRE_MESSAGE**"
 
 obj/structure/guns/cannon
 	icon = 'smoke.dmi'
 	density = 1
 	desc = "A large cannon."
+	fire_message = "** BOOM **"
 
 obj/structure/guns/cannon/Cross()
 	step_away(src,usr)
@@ -247,6 +249,48 @@ obj/structure/guns/verb/unload()
 		ammo_count = 0
 	else
 		usr << "[src] isn't loaded!"
+
+obj/structure/guns/Click()
+	if(usr in view(1))
+		if(src.ammo_count)
+			src.shoot()
+		else
+			src.reload()
+	else
+		..()
+
+obj/structure/guns/verb/shoot()
+	if(ammo_count)
+		view() << "[fire_message]"
+		LaunchProjectile(dir)
+	else
+		view() << "[usr] tries to fire [src] but it isn't loaded!"
+
+obj/structure/guns/proc/LaunchProjectile(direction)
+	view(src) << "[usr] fires [src]!"
+	var/projectile = /obj/projectile
+	new projectile(src,direction)
+	src.ammo_count -= 1
+
+obj/projectile
+	var/power
+	var/stat/projectile_type = "smashing"
+	icon = 'projectile.dmi'
+	density = 1
+
+obj/projectile/New(loc,direction,damage)
+	set waitfor = 0
+	power = 20 + roll(1,50)
+	walk(src,direction)
+	sleep(10)
+	del src
+
+obj/projectile/Bump(atom/target)
+	if(istype(target,/mob))
+		view(target) << "[src] hits [target]!"
+		view(target) << "[target] takes [power] damage!"
+		Hurt(target,power)
+		del src
 
 obj/gettable/ammunition
 	var/ammo_type = /obj/gettable/ammunition/cannonball
